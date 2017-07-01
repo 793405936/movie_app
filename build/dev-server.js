@@ -193,11 +193,13 @@ apiRoutes.get('/session', function(req, res, next){
   console.log('111111');
   if(req.session.user){
     console.log('222222');
-    users.findOne({user: req.session.user}).then(function (user) {
-      res.status(200).send(JSON.stringify(user));
-      console.log(user);
-      res.end();
-    });
+    console.log(req.session.user);
+    res.status(200).send(JSON.stringify(user)).end();
+    // users.findOne({user: req.session.user}).then(function (user) {
+    //   res.status(200).send(JSON.stringify(user));
+    //   console.log(user);
+    //   res.end();
+    // });
   }else{
     var user = req.session.user = {};
     console.log('33333');
@@ -257,6 +259,16 @@ apiRoutes.post('/storeMovie', function (req, res, next) {
     }
   });
 });
+
+/**
+ * 退出登录
+ */
+apiRoutes.get('/logout',function (req,res,next) {
+  if (req.session.user) {
+    req.session.user = null;
+    res.status(200).end();
+  }
+})
 
 app.use('/api', apiRoutes);
 

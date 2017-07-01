@@ -70,7 +70,7 @@
   .loveMovie{
     position: absolute;
     top: 40px;
-    bottom: 0;
+    bottom: 30px;
     width: 100%;
     overflow: hidden;
   }

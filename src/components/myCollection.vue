@@ -14,46 +14,47 @@
         </div>
       </div>
     </div>
-    <div class="movie">
-      <!--<router-link to="/loveMovie"></router-link>-->
-      <loveMovie v-show="movie"></loveMovie>
+    <div class="movie" v-show="movie">
+      <loveMovie></loveMovie>
     </div>
+    <div class="logout" v-show="movie" @click="logout">注销</div>
   </div>
 </template>
 
 <script>
   import loveMovie from './loveMovie.vue';
-  //  import sign from './sign.vue';
 
   export default {
     data () {
       return {
         sign: true,
         movie: false,
-        username: ''
+        user: []
       };
     },
     created () {
       this.$http.get('/api/session').then((response) => {
         if (response.status === 200) {
-//          console.log(response.body);
-//          this.username = response.body;
-//          console.log(this.username);
-//          var that = this;
           this.sign = false;
           this.movie = true;
           console.log(this.sign);
           console.log(this.movie);
-//          this.$nextTick(() => {
-//            that.sign = false;
-//            that.movie = true;
-//          });
-//          this.viewDetail();
         } else {
           this.$router.push('/sign');
-          console.log('1111111111');
         }
       });
+    },
+    methods: {
+      logout () {
+        this.$http.get('/api/logout').then(response => {
+          if (response.status === 200) {
+            console.log('用户已退出登录');
+            this.sign = true;
+            this.movie = false;
+            this.$router.push('/signin');
+          }
+        });
+      }
     },
     components: {
       loveMovie
@@ -87,5 +88,18 @@
   .header .sign-item a {
     font-size: 24px;
     color: #00b;
+  }
+
+  .myCollection .logout {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    height: 30px;
+    width: 100%;
+    line-height: 30px;
+    font-size: 28px;
+    color: red;
+    background-color: #eee;
+    text-align: center;
   }
 </style>
