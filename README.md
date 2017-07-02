@@ -7,4 +7,4 @@
 运行步骤： 
 1. 安装依赖：npm install
 2. 获取电影数据：切换到server目录运行 node crawler.js
-3。 切换到项目目录运行 npm run dev
+3. 切换到项目目录运行 npm run dev
