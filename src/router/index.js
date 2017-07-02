@@ -5,7 +5,7 @@ import HottestMovie from '../components/HottestMovie.vue';
 import myCollection from '../components/myCollection.vue';
 import signin from '../components/signin.vue';
 import signup from '../components/signup.vue';
-import loveMovie from '../components/loveMovie.vue';
+// import loveMovie from '../components/loveMovie.vue';
 
 Vue.use(Router);
 Vue.use(vueResource);
@@ -40,10 +40,10 @@ export default new Router({
     {
       path: '/myCollection',
       component: myCollection
-    },
-    {
-      path: '/loveMovie',
-      component: loveMovie
     }
+    // {
+    //   path: '/loveMovie',
+    //   component: loveMovie
+    // }
   ]
 });

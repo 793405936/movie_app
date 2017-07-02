@@ -16,7 +16,7 @@
             </div>
           </div>
           <div class="filmExtra">
-            <!--<span class="deleteMovie" @click="deleteMovie">取消</span>-->
+            <span class="deleteMovie" @click="deleteMovie(item.filmName)">取消</span>
             <span class="display">
               <a :href="item.filmUrl">观看</a>
             </span>
@@ -29,7 +29,7 @@
 
 <script>
   import BScroll from 'better-scroll';
-//
+
   export default {
     data () {
       return {
@@ -46,40 +46,43 @@
           });
         });
       });
+    },
+    methods: {
+      /**
+       * 取消收藏
+       */
+      deleteMovie (filmName) {
+        this.$http.post('/api/deleteMovie', {filmName: filmName})
+          .then(response => {
+            console.log(filmName);
+            if (response.status === 200) {
+              console.log('删除成功');
+              this.$router.go(0); // 刷新当前页面
+            } else {
+              console.log('删除失败');
+            }
+          });
+      }
     }
-//    methods: {
-//      /**
-//       * 取消收藏
-//       */
-//      deleteMovie (id) {
-//        this.$http.delete('/article/' + id).then(function(res){
-//          if(res.status==200) this.articles.splice(index,1);
-//
-//          if(this.articles.length<1){
-//            this.getArticleList(1, this.sortby, this.sortdir, this.category, this.user, this.keyword);
-//          }
-//        }, function(res){
-//          alert('删除文章列表： '+ res.status);
-//        });
-//      }
-//    }
   };
 </script>
 
 <style>
-  .loveMovie{
+  .loveMovie {
     position: absolute;
     top: 40px;
     bottom: 30px;
     width: 100%;
     overflow: hidden;
   }
+
   .loveMovie .selectedFilms .film {
     display: flex;
     padding: 0 10px;
     height: 100px;
     border-bottom: solid 1px #7e8c8d;
   }
+
   .loveMovie .selectedFilms .film .filmImg {
     flex: 0 0 60px;
     margin: 10px 0;

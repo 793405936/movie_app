@@ -40,9 +40,6 @@
         response = response.body;
         this.filmData = response;
         this.$nextTick(() => {
-//          this.scroll = new BScroll(this.$refs.hottestMovie, {
-//            click: true
-//          });
           if (!this.scroll) {
             this.scroll = new BScroll(this.$refs.hottestMovie, {
               click: true

@@ -194,7 +194,7 @@ apiRoutes.get('/session', function(req, res, next){
   if(req.session.user){
     console.log('222222');
     console.log(req.session.user);
-    res.status(200).send(JSON.stringify(user)).end();
+    res.status(200).send(JSON.stringify(req.session.user)).end();
     // users.findOne({user: req.session.user}).then(function (user) {
     //   res.status(200).send(JSON.stringify(user));
     //   console.log(user);
@@ -259,6 +259,18 @@ apiRoutes.post('/storeMovie', function (req, res, next) {
     }
   });
 });
+
+/**
+ * 取消收藏
+ */
+apiRoutes.post('/deleteMovie', function (req, res, next) {
+  const filmName = req.body.filmName;
+  db.StoreMovie.findOneAndRemove({filmName:filmName})
+    .then(function () {
+      console.log('成功取消收藏');
+      res.status(200).end();
+  });
+})
 
 /**
  * 退出登录

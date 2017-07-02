@@ -1,5 +1,5 @@
 <template>
-  <div class="myCollection">
+  <div class="myCollection" @click="refreshpage">
     <div class="header" v-show="sign">
       <div class="log">
         <span>已有账号，请</span>
@@ -29,18 +29,21 @@
       return {
         sign: true,
         movie: false,
-        user: []
+        user: {}
       };
     },
     created () {
+//      console.log(this.sign);
       this.$http.get('/api/session').then((response) => {
         if (response.status === 200) {
+          this.user = response.body;
           this.sign = false;
           this.movie = true;
-          console.log(this.sign);
-          console.log(this.movie);
+//          console.log(this.sign);
+//          console.log(this.movie);
+//          this.$router.go(0);
         } else {
-          this.$router.push('/sign');
+          this.$router.push('/signin');
         }
       });
     },
@@ -54,6 +57,9 @@
             this.$router.push('/signin');
           }
         });
+      },
+      refreshpage () {
+        this.$router.go(0);
       }
     },
     components: {
