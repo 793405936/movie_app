@@ -249,7 +249,7 @@ apiRoutes.get('/session', function(req, res, next){
 /**
  * 收藏电影
  */
-apiRoutes.post('/storeMovie', checkMovie, function (req, res, next) {
+apiRoutes.post('/storeMovie', isLog, checkMovie, function (req, res, next) {
   const filmName = req.body.filmName;
   const filmUrl = req.body.filmUrl;
   const filmImg = req.body.filmImg;
@@ -278,8 +278,17 @@ apiRoutes.post('/storeMovie', checkMovie, function (req, res, next) {
 });
 
 /**
- * 收藏电影的Middleware
+ * 收藏电影的Middleware,
+ * isLog()检查用户是否登录，登录之后才能收藏，
+ * checkMovie()检查该电影是否已经收藏，若数据库中存在，则不再进行收藏
  */
+function isLog(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    next('请先登录');
+  }
+}
 function checkMovie(req,res,next) {
   const filmName = req.body.filmName;
   db.StoreMovie.findOne({filmName: filmName}, function (err,filmName) {
