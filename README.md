@@ -2,29 +2,9 @@
 
 > A Vue.js project
 
-## Build Setup
-
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+项目前提：项目所用电影信息是从腾讯视频抓取的，把数据保存到数据库之后，才能运行该项目。
+运行条件：mongodb、nodejs（>4.0,因为项目采用vue-cli脚手架工具进行构建，对nodejs版本有要求）。
+运行步骤：
+1、安装依赖：npm install
+2、获取电影数据：切换到server目录运行 node crawler.js
+3、切换到项目目录运行 npm run dev
