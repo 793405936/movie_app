@@ -4,8 +4,8 @@
     <div class="signUpDetails">
       <form action="#" class="details">
         用户名：<input type="text" class="name" name="name" v-model="name" placeholder="请输入用户名">
-        密码：<input type="text" class="password" name="password" v-model="password" placeholder="请输入密码">
-        重复输入密码：<input type="text" class="confirm" name="password" v-model="rePassword" placeholder="请再次输入密码">
+        密码：<input type="password" class="password" name="password" v-model="password" placeholder="请输入密码">
+        重复输入密码：<input type="password" class="confirm" name="password" v-model="rePassword" placeholder="请再次输入密码">
         <a @click="reg(name,password,rePassword)">提交</a>
       </form>
     </div>

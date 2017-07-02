@@ -4,7 +4,7 @@
     <div class="signInDetails">
       <form class="details">
         用户名：<input type="text" class="name" name="name" placeholder="请输入用户名" v-model="name">
-        密码：<input type="text" class="password" name="password" placeholder="请输入密码" v-model="password">
+        密码：<input type="password" class="password" name="password" placeholder="请输入密码" v-model="password">
         <a @click.preventDefault="login(name,password)">登录</a>
       </form>
     </div>
