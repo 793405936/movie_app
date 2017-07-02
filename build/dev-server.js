@@ -113,7 +113,7 @@ apiRoutes.get('/storemovies', function (req, res) {
 /**
  * 用户注册
  */
-apiRoutes.post('/signup', function (req, res, next) {
+apiRoutes.post('/signup', checkUser, function (req, res, next) {
   const name = req.body.name;
   const password = req.body.password;
   const rePassword = req.body.rePassword;
@@ -154,6 +154,23 @@ apiRoutes.post('/signup', function (req, res, next) {
     }
   });
 });
+
+/**
+ * 用户注册的Middleware
+ */
+function checkUser(req, res, next) {
+  const name = req.body.name;
+  db.User.findOne({name: name}, function (err, result) {
+    if (err) {
+      console.log(err);
+    }
+    if (!result) {
+      next();
+    } else {
+      next('该用户名已注册，请更换用户名或者登录');
+    }
+  })
+}
 
 /**
  * 用户登录
@@ -232,7 +249,7 @@ apiRoutes.get('/session', function(req, res, next){
 /**
  * 收藏电影
  */
-apiRoutes.post('/storeMovie', function (req, res, next) {
+apiRoutes.post('/storeMovie', checkMovie, function (req, res, next) {
   const filmName = req.body.filmName;
   const filmUrl = req.body.filmUrl;
   const filmImg = req.body.filmImg;
@@ -259,6 +276,23 @@ apiRoutes.post('/storeMovie', function (req, res, next) {
     }
   });
 });
+
+/**
+ * 收藏电影的Middleware
+ */
+function checkMovie(req,res,next) {
+  const filmName = req.body.filmName;
+  db.StoreMovie.findOne({filmName: filmName}, function (err,filmName) {
+    if (err) {
+      console.log('err');
+    }
+    if(!filmName) {
+      next();
+    } else {
+      next('该电影已收藏，请勿重复收藏');
+    }
+  });
+}
 
 /**
  * 取消收藏
